@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #d9b89e 0%, #e8c7b0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #c41e3a;
+            font-size: 3.5em;
+            margin-bottom: 50px;
+            font-family: 'Great Vibes', cursive;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: none;
+        }
+
+        .gift-box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .gift-box {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+        }
+
+        .heart-box svg {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+        }
+
+        .surprise-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 1000;
+            max-width: 500px;
+            width: 90%;
+            animation: popIn 0.5s ease;
+        }
+
+        .surprise-box.show {
+            display: block;
+        }
+
+        .surprise-box h2 {
+            color: #e74c3c;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .surprise-box p {
+            color: #555;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            animation: confetti 3s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <h1>Happy Valentine's Day</h1>
+
+        <div class="gift-box-container">
+            <div class="gift-box" onclick="goToSurprise()">
+                <img src="Heart.png" alt="Heart Gift Box" style="max-width: 400px; width: 100%; border-radius: 20px;">
+            </div>
+        </div>
+    </div>
+
+    <div class="surprise-box" id="surpriseBox">
+        <h2>💕 Surprise! 💕</h2>
+        <p>This Valentine's Day, remember that you are special and deserve all the love in the world!</p>
+        <p>Share the joy and happiness with those around you.</p>
+        <button class="close-btn" onclick="closeSurprise()">Close</button>
+    </div>
+
+    <script>
+        function goToSurprise() {
+            window.location.href = 'surprise.html';
+        }
+
+        function openSurprise() {
+            document.getElementById('surpriseBox').classList.add('show');
+            document.getElementById('overlay').classList.add('show');
+            createConfetti();
+        }
+
+        function closeSurprise() {
+            document.getElementById('surpriseBox').classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
+        function createConfetti() {
+            const colors = ['#FF3860', '#4ECDC4', '#FF6B9D', '#FFD700', '#FF69B4'];
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // Close modal when clicking overlay
+        document.getElementById('overlay').addEventListener('click', closeSurprise);
+    </script>
+</body>
+</html>
